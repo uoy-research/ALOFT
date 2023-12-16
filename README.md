@@ -5,5 +5,5 @@ Aloft is an artifact designed to give the self-adaptive systems research communi
 Aloft contains a self-adaptive controller to address the scenario described based on the two layered architecture of a manged and managing system. The managing system utilises a MAPE-K feedback loop. 
 
 In Aloft the simulation for the exemplar can be conducted with a few commands. In terminal 1:
-[roslaunch drone_controller mine_1_setup.launch]
+`roslaunch drone_controller mine_1_setup.launch`
 This will load Gazebo with the 

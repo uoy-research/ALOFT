@@ -4,6 +4,15 @@ Aloft is an artifact designed to give the self-adaptive systems research communi
 
 Aloft contains a self-adaptive controller to address the scenario described based on the two layered architecture of a manged and managing system. The managing system utilises a MAPE-K feedback loop. The specific drone used is the PX4-Vision which is equipped with IMU sensors, and a 3D-depth camera. All models for the exemplar are contained in the folder **catkin_ws/src/drone_controller/models/**.
 
+## Mock mine construction
+The process of generating the models for Aloft is as follows:
+
+1. A physical representation was constructed
+2. A scan was taking of the physical mock mine to gather data points
+3. The cloud points were then converted into a DAE file
+
+ Over all this process took X time per mine. **add justification of one being cleaned via blender? Offers much difference in simulation?**
+
 ## Setting up the VM
 It is recommend, at a minimum, to create a VM that has at least 16GB of RAM and 4 cpus. Additionally as stated before a GPU passthrough is useful for running the full exemplar which includes darknet_ros. For installing qcow2 VM images can only be used on Ubuntu OS. The qcow2 image can be converted for other OS, for example using qemu-img to convert qcow2 to vmdk for Windows OS. We were able to perform this conversion using qemu-img, and once we have properly tested that the conversion was succesful we will upload the vmdk image here.
 

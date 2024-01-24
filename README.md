@@ -4,6 +4,14 @@ Aloft is an artifact designed to give the self-adaptive systems research communi
 
 Aloft contains a self-adaptive controller to address the scenario described based on the two layered architecture of a manged and managing system. The managing system utilises a MAPE-K feedback loop. The specific drone used is the PX4-Vision which is equipped with IMU sensors, and a 3D-depth camera. All models for the exemplar are contained in the folder **catkin_ws/src/drone_controller/models/**.
 
+## Setting up the VM
+It is recommend, at a minimum, to create a VM that has at least 16GB of RAM and 4 cpus. Additionally as stated before a GPU passthrough is useful for running the full exemplar which includes darknet_ros. For installing qcow2 VM images can only be used on Ubuntu OS. The qcow2 image can be converted for other OS, for example using qemu-img to convert qcow2 to vmdk for Windows OS. We were able to perform this conversion using qemu-img, and once we have properly tested that the conversion was succesful we will upload the vmdk image here.
+
+For installing the VM on Ubuntu you can use virt-manager and follow the GUI instructions. The user can also use virt-install as follows:
+
+`virt-install --name Aloft_VM --memory 16834 --vcpus 4 --disk /path/to/qcow2_image/aloft.qcow2,bus=sata --import --network default`
+
+## Running the Exemplar
 In Aloft the simulation for the exemplar can be conducted with a few commands. In terminal 1:
 
 `roslaunch drone_controller mine_1_setup.launch darknet_active:=1`
@@ -18,7 +26,7 @@ In terminal 2:
 
 This starts the nodes responsible for the managing of the current waypoint and velocity control. This command requires an input argument to determine the max speed. In this example it is set to **1.0**. This node will arm and set the drone to operate in OFFBOARD_MODE. The drone should now fly up waiting for its next waypoint.
 
-To conduct the exemplar of the To get the drone into position, in terminal 3:
+To conduct the exemplar of the, first run the python ROS script to get the drone into position, in terminal 3:
 
 `rosrun drone_controller drone_sim_mine_1_setup.py`
 

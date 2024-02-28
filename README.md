@@ -1,27 +1,47 @@
 # Aloft: Self-Adaptive Drone Controller Testbed
 
-Aloft is an artifact designed to give the self-adaptive systems research community to investigate self-adaptive drone controllers in mine operations. The artifact provides a simulation setup containing two mine environments, constructed from scans taking of constructed mock mines, and 3D data points of one of the mines (located in **3D_points**). A signal loss exemplar is also included. The scenario is where the drone is deployed and manually piloted for a surveying task, but during this task loses signal with home base. The drone must now autonomously fly home and safely land. With battery life a concern and wanting to avoid the drone being retrieved by a mine operator, it is desirable for the drone to return quickly. However there may be mine operators present which should force the drone to fly at a slower speed. A qcow2 virtual machine image can be downloaded from this link https://drive.google.com/file/d/1t9_pWO9RF4o-Dby0NumKji70EuUT0g9O/view?usp=sharing. The password is **aloft1234**. We highly recommend using a GPU passthrough when running the VM. A MS Windows VMWare Workstation VM is currently in development for Aloft.
+Aloft is an artifact designed to give the self-adaptive systems research community to investigate self-adaptive drone controllers in mine operations. The artifact provides a simulation setup containing two mine environments, constructed from scans taking of constructed mock mines, and 3D data points of one of the mines (located in **3D_points**). A signal loss exemplar is also included. The scenario is where the drone is deployed and manually piloted for a surveying task, but during this task loses signal with home base. The drone must now autonomously fly home and safely land. With battery life a concern and wanting to avoid the drone being retrieved by a mine operator, it is desirable for the drone to return quickly. However there may be mine operators present which should force the drone to fly at a slower speed. 
+- **Linux users:** A qcow2 virtual machine image can be downloaded from this link https://drive.google.com/file/d/1t9_pWO9RF4o-Dby0NumKji70EuUT0g9O/view?usp=sharing  
+We highly recommend using a GPU passthrough when running the VM. 
+- **MS Windows:** A VMWare Workstation VM can be downloaded from this link https://drive.google.com/file/d/1TXlZSxgPWEBm3SF2qaW0P-lKWxBHPAVK/view?usp=sharing  
+Unzip the downloaded file to a suitable directory.  
+You will need to have **VMWare Workstation 17 Player** or similar installed to run the VM. This is the free version of VMWare and can be downloaded here: https://www.vmware.com/uk/products/workstation-player/workstation-player-evaluation.html  
+Follow the instructions to setup VMWare on your PC.
+
+
+For all VMs, the password is **aloft1234**. 
 
 Aloft contains a self-adaptive controller to address the scenario described based on the two layered architecture of a manged and managing system. The managing system utilises a MAPE-K feedback loop. The specific drone used is the PX4-Vision which is equipped with IMU sensors, and a 3D-depth camera. All models for the exemplar are contained in the folder **catkin_ws/src/drone_controller/models/**.
 
 ## Mock mine construction
 The process of generating the models for Aloft is as follows:
 
-1. A physical representation was constructed
-2. A scan was taking of the physical mock mine to gather data points
-3. The cloud points were then converted into a DAE file
+1. A physical representation (mock mine) was constructed in a Robot Lab (this took 2 weeks to fully construct),
+2. A TLS (laser scan) was taken of the physical mock mine (set of data points),
+3. The cloud points were then converted into a DAE file which could be imported into Gazebo 3D simulation.
 
- Over all this process took X time per mine. **add justification of one being cleaned via blender? Offers much difference in simulation?**
+ Overall steps 2 and 3 took 6 hours per mine. 
+ 
+ One mine simulation has been cleaned using Blender and one was not cleaned. This was deliberate to allow the user to experiment with different approaches and use cleaned and non-cleaned models for training and testing algorithms as appropriate. 
 
-## Setting up the VM
-It is recommend, at a minimum, to create a VM that has at least 16GB of RAM and 4 cpus. Additionally as stated before a GPU passthrough is useful for running the full exemplar which includes darknet_ros. For installing qcow2 VM images can only be used on Ubuntu OS. The qcow2 image can be converted for other OS, for example using qemu-img to convert qcow2 to vmdk for Windows OS. We were able to perform this conversion using qemu-img, and once we have properly tested that the conversion was succesful we will upload the vmdk image here.
+## Setting up the VM (Linux users)
+It is recommend, at a minimum, to create a VM that has at least 16GB of RAM and 4 cpus. 
 
-For installing the VM on Ubuntu you can use virt-manager and follow the GUI instructions. The user can also use virt-install as follows:
+For installing qcow2 VM images can only be used on Ubuntu OS. The qcow2 image can be converted for other OS, for example using qemu-img to convert qcow2 to vmdk for Windows OS. We were able to perform this conversion using qemu-img.
+
+For installing the VM on Ubuntu you can use virt-manager and follow the GUI instructions. Additionally as stated before a GPU passthrough is useful for running the full exemplar which includes darknet_ros. The user can also use virt-install as follows:
 
 `virt-install --name Aloft_VM --memory 16834 --vcpus 4 --disk /path/to/qcow2_image/aloft.qcow2,bus=sata --import --network default`
 
-## Running the Exemplar
-In Aloft the simulation for the exemplar can be conducted with a few commands. In terminal 1:
+## Running the VM (all users)
+### Linux users
+### MS Windows users
+Download the VMWare zip file to a suitable MS Windows directory on your machine.
+
+To run the VM on your PC, follow the instructions here: https://docs.vmware.com/en/VMware-Workstation-Pro/17/com.vmware.ws.using.doc/GUID-79B88EBD-DFA4-4C09-B33D-E011AABCA8D4.html
+
+## Running the Aloft Exemplar (all users)
+Once the VM is running, the Aloft simulation for the exemplar can be conducted with a few commands (for all VMs). In terminal 1:
 
 `roslaunch drone_controller mine_1_setup.launch darknet_active:=1`
 
